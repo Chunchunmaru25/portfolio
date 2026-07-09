@@ -7,7 +7,7 @@ import { upload } from "../midlleware/multer.middleware.js";
 import authMiddleware from "../midlleware/auth.middleware.js";
 const projectRouter = Router();
 
-projectRouter.post("/", authMiddleware, upload.array("images"), addProject);
+projectRouter.post("/", upload.array("images"), addProject);
 projectRouter.get("/", getProjects); //public
 
 projectRouter.get("/private", authMiddleware, getPrivateProjects); //private

@@ -31,14 +31,14 @@ export const getSingleProject = async (projectId: string) => {
 export async function addProjects(formData: FormData) {
     const { data } = await axios.post(
         `${import.meta.env.VITE_APP_BACKEND_URL}/projects`,
-        formData
+        formData, { withCredentials: true }
     );
     return data;
 }
 
 export async function deleteProjectApi(projectId: string) {
     const { data } = await axios.delete(
-        `${import.meta.env.VITE_APP_BACKEND_URL}/projects/${projectId}`
+        `${import.meta.env.VITE_APP_BACKEND_URL}/projects/${projectId}`, { withCredentials: true }
     );
 
     return data;
@@ -74,7 +74,7 @@ export async function addTypeApi(
         {
             projectId,
             types,
-        }
+        }, { withCredentials: true }
     );
 
     return data;
@@ -82,7 +82,7 @@ export async function addTypeApi(
 
 export async function deleteTypeApi(projectId: string) {
     const { data } = await axios.delete(
-        `${import.meta.env.VITE_APP_BACKEND_URL}/projects/delete-type/${projectId}`
+        `${import.meta.env.VITE_APP_BACKEND_URL}/projects/delete-type/${projectId}`, { withCredentials: true }
     );
 
     return data;
@@ -102,7 +102,7 @@ export async function addStackApi(
         {
             projectId,
             names,
-        }
+        }, { withCredentials: true }
     );
 
     return data;
@@ -110,7 +110,7 @@ export async function addStackApi(
 
 export async function deleteStackApi(projectId: string) {
     const { data } = await axios.delete(
-        `${import.meta.env.VITE_APP_BACKEND_URL}/projects/delete-stack/${projectId}`
+        `${import.meta.env.VITE_APP_BACKEND_URL}/projects/delete-stack/${projectId}`, { withCredentials: true }
     );
 
     return data;
@@ -124,7 +124,7 @@ export async function addSourceApi(projectId: string, formData: FormData) {
 
     const { data } = await axios.post(
         `${import.meta.env.VITE_APP_BACKEND_URL}/projects/add-source`,
-        formData
+        formData, { withCredentials: true }
     );
 
     return data;
@@ -132,7 +132,7 @@ export async function addSourceApi(projectId: string, formData: FormData) {
 
 export async function deleteSourceApi(projectId: string) {
     const { data } = await axios.delete(
-        `${import.meta.env.VITE_APP_BACKEND_URL}/projects/delete-source/${projectId}`
+        `${import.meta.env.VITE_APP_BACKEND_URL}/projects/delete-source/${projectId}`, { withCredentials: true }
     );
 
     return data;

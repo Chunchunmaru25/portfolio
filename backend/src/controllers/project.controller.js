@@ -166,47 +166,46 @@ export const updateProject = async (req, res) => {
     }
 }
 
-// delete project
 export const deleteProject = async (req, res) => {
     const { id } = req.params;
 
     try {
+        const sources = await prisma.sources.findMany({
+            where: { projectId: id },
+            select: { imgPath: true },
+        });
 
-        const result = await prisma.$transaction(async (tx) => {
-            const sources = await tx.sources.findMany({
-                where: { projectId: id },
-                select: { imgPath: true },
-            });
+        const imgPaths = sources
+            .map((source) => source.imgPath)
+            .filter(Boolean);
 
-            const imgPaths = sources.map(s => s.imgPath);
-
-            const { data, error } = await supabase.storage
+        if (imgPaths.length > 0) {
+            const { error } = await supabase.storage
                 .from("portfolio")
                 .remove(imgPaths);
-
-            console.log(data);
-            console.log(error);
 
             if (error) {
                 throw error;
             }
+        }
 
-            await tx.projects.delete({
-                where: { id },
-            });
+        const deletedProject = await prisma.projects.delete({
+            where: { id },
         });
 
         return res.status(200).json({
             status: "success",
             message: "Project deleted successfully.",
-            data: result
+            data: deletedProject,
         });
 
     } catch (error) {
+        console.error(error);
+
         return res.status(500).json({
             status: "error",
             message: `Failed to delete project ${id}.`,
-            data: error.message,
+            data: error instanceof Error ? error.message : "Unknown error",
         });
     }
 };

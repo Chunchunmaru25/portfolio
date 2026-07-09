@@ -50,7 +50,7 @@ export default function ProjectsView() {
     // Project
     // ======================
     const handleDeleteProject = async (projectId: string) => {
-        if (!window.confirm("Delete this project?")) return;
+        if (!window.confirm("Delete this project?" + projectId)) return;
         try {
             const deleteProject = await deleteProjectApi(projectId);
             if (deleteProject.status === "error") {

@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
         if (!token) {
             return res.status(401).json({
                 status: "error",
-                message: "Unauthorized",
+                message: "Unauthorizeddd",
             });
         }
 
@@ -21,7 +21,7 @@ const authMiddleware = (req, res, next) => {
     } catch (error) {
         return res.status(401).json({
             status: "error",
-            message: "Unauthorized",
+            message: "Unauthorizedd",
             data: error.message,
         });
     }
