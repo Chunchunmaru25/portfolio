@@ -1,0 +1,201 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+// prisma/schema.prisma
+// Define your database models
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ENUMS 
+enum Types {
+  development
+  automation
+  mockup
+}
+
+enum devTypes {
+  frontend
+  backend
+  databaseandserver
+  developmenttools
+  templateanddesign
+}
+
+//  models
+model users {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  sources   sources[]
+  types     types[]
+}
+
+model projects {
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+
+  source        sources[]
+  type          types[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  projectStacks projectStack[]
+}
+
+model sources {
+  id          String  @id @default(uuid())
+  title       String?
+  description String?
+  imgUrl      String?
+  imgPath     String?
+
+  projectId String
+  project   projects @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     users?   @relation(fields: [usersId], references: [id])
+  usersId   String?
+}
+
+model projectStack {
+  id        String   @id @default(uuid())
+  name      String
+  projectId String
+  project   projects @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model types {
+  id String @id @default(uuid())
+
+  type Types @default(development)
+
+  projectId String
+  project   projects @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     users?   @relation(fields: [usersId], references: [id])
+  usersId   String?
+}
+
+model education {
+  id                    String                  @id @default(uuid())
+  program               String
+  branch                String
+  startDate             DateTime                @db.Date
+  endDate               DateTime                @db.Date
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  educationDescriptions education_description[]
+}
+
+model education_description {
+  id          String  @id @default(uuid())
+  description String? @db.Text
+
+  educationId String
+  education   education @relation(fields: [educationId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model experience {
+  id                     String                   @id @default(uuid())
+  company                String
+  branch                 String
+  position               String
+  startDate              DateTime                 @db.Date
+  endDate                DateTime                 @db.Date
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+  experienceDescriptions experience_description[]
+}
+
+model experience_description {
+  id          String  @id @default(uuid())
+  description String? @db.Text
+
+  experienceId String
+  experience   experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model achievements {
+  id          String   @id @default(uuid())
+  title       String
+  year        String
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model softSkills {
+  id          String   @id @default(uuid())
+  skills      String
+  progress    Int
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model frontendSkills {
+  id          String   @id @default(uuid())
+  skills      String
+  progress    Int
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model backendSkills {
+  id          String   @id @default(uuid())
+  skills      String
+  progress    Int
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model techStack {
+  id            String          @id @default(uuid())
+  stack         String
+  bgColor       String          @db.Text
+  imgUrl        String          @db.Text
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  techstacktype techStackType[]
+}
+
+model techStackType {
+  id          String     @id @default(uuid())
+  type        devTypes?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  techStack   techStack? @relation(fields: [techStackId], references: [id], onDelete: Cascade)
+  techStackId String?
+}
+
+model personal {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

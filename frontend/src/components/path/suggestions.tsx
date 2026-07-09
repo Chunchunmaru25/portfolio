@@ -1,0 +1,50 @@
+export const TYPE_SUGGESTIONS = [
+    "automation",
+    "development",
+    "mockup",
+];
+
+export const STACK_SUGGESTIONS = [
+    "React",
+    "TypeScript",
+    "JavaScript",
+    "Express",
+    "Prisma",
+    "PostgreSQL",
+    "Tailwind CSS",
+    "CSS",
+    "HTML",
+    "Node.js",
+    "Next.js",
+    "Vue.js",
+    "Angular",
+    "Svelte",
+    "NestJS",
+    "React Native",
+    "Redux",
+    "Python",
+    "Java",
+    "C#",
+    "C++",
+    "C",
+    "PHP",
+    "Laravel",
+    "Django",
+    "Flask",
+    "Ruby",
+    "Ruby on Rails",
+    "Go",
+    "Rust",
+    "Kotlin",
+    "Swift",
+    "ASP.NET",
+    "Spring Boot"
+];
+
+export const TECHTYPE_SUGGESTIONS = [
+    "Frontend",
+    "Backend",
+    "Database And Server",
+    "Development Tools",
+    "Template And Design",
+]
