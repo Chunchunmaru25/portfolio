@@ -1,5 +1,5 @@
 
-import ProfileCard from '../../reactbits/ProfileCard'
+import ProfileCard from "../../reactbits/ProfileCard";
 import { TypingAnimation } from "../../ui/typing-animation";
 import ContainedBtn from "../../uiverse/ContainedBtn";
 import OutlinedBtn from "../../uiverse/OutlinedBtn";

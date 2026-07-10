@@ -69,7 +69,7 @@ export default function Index() {
             </Helmet>
 
             <div className="relative">
-                <GridBackground className="absolute inset-0 -z-10" />
+                <GridBackground style="absolute inset-0 -z-10" />
                 <Hero />
             </div>
 

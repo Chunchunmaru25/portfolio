@@ -30,10 +30,18 @@ export default function ProjectFilter() {
     const isDarkMode = useTheme();
     const { Projects, loading, error } = useProjects();
 
+    const formattedProjects: Project[] = Projects.map((project) => ({
+        ...project,
+        type: project.type.map((t) => ({
+            ...t,
+            type: t.type as ProjectCategory,
+        })),
+    }));
+
     const visibleProjects: Project[] =
         activeFilter === "all"
-            ? Projects
-            : Projects.filter((project: Project) =>
+            ? formattedProjects
+            : formattedProjects.filter((project) =>
                 project.type.some((t) => t.type === activeFilter)
             );
 

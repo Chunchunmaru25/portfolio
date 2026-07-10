@@ -2,16 +2,32 @@ import { useEffect, useState } from "react";
 import { getTechStack } from "../services/techStack";
 import { getErrorMessage } from "../path/interfaces/dataTypes";
 
-interface TechStackItem {
+interface TechStackApiItem {
     id: string;
     stack: string;
-    color?: string;
-    imgUrl?: string;
-    [key: string]: unknown;
+    bgColor: string;
+    imgUrl: string;
+    createdAt: string;
+    updatedAt: string;
+    techstacktype: TechStackTypeApiItem[];
 }
+interface TechStackTypeApiItem {
+    id: string;
+    type: ProjectType;
+    createdAt: string;
+    updatedAt: string;
+    techStackId: string;
+}
+type ProjectType =
+    | "frontend"
+    | "backend"
+    | "databaseandserver"
+    | "developmenttools"
+    | "templateanddesign";
+
 
 export default function useTechStack(enabled = true) {
-    const [techStack, setTechStack] = useState<TechStackItem[]>([]);
+    const [techStack, setTechStack] = useState<TechStackApiItem[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 

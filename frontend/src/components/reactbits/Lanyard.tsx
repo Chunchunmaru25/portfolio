@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, extend, useFrame, type ThreeElement, type ThreeEvent } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
-
 import {
   BallCollider,
   CuboidCollider,
@@ -18,6 +17,7 @@ import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import * as THREE from 'three';
 
 // replace with your own imports, see the usage snippet for details
+
 import cardGLB from '/3d/card.glb';
 import lanyard from '../../assets/images/lanyard.png';
 
@@ -341,13 +341,20 @@ function Band({
       <mesh ref={band}>
         <meshLineGeometry />
         <meshLineMaterial
-          color="white"
-          depthTest={false}
-          resolution={isMobile ? [1000, 2000] : [1000, 1000]}
-          useMap={1}
-          map={texture}
-          repeat={[-4, 1]}
-          lineWidth={lanyardWidth}
+          args={[
+            {
+              color: new THREE.Color("white"),
+              // depthTest: false,
+              resolution: new THREE.Vector2(
+                isMobile ? 1000 : 1000,
+                isMobile ? 2000 : 1000
+              ),
+              useMap: 1,
+              map: texture,
+              repeat: new THREE.Vector2(-4, 1),
+              lineWidth: lanyardWidth,
+            },
+          ]}
         />
       </mesh>
     </>
