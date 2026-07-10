@@ -1,7 +1,7 @@
 export const WebRoute = {
     HOME: "/",
     LOGIN: "/login",
-    REGISTER: "register",
+    REGISTER: "/register",
     CONTROL_PANEL: "/control-panel",
 
     // project
