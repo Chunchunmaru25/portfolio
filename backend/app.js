@@ -25,7 +25,10 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(cookieParser());
 app.use(cors({
-    origin: BACKEND_URL,
+    origin: [
+        "http://localhost:5173",
+        BACKEND_URL
+    ],
     credentials: true,
 }));
 

@@ -9,8 +9,10 @@ export default function AuthMiddleware() {
     useEffect(() => {
         const checkToken = async () => {
             try {
-                await ValidateJwt();
-                setAuthenticated(true);
+                const response = await ValidateJwt();
+                if (response) {
+                    setAuthenticated(true);
+                }
             } catch {
                 setAuthenticated(false);
             } finally {
