@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, extend, useFrame, type ThreeElement, type ThreeEvent } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
+
 import {
   BallCollider,
   CuboidCollider,
@@ -17,7 +18,7 @@ import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 import * as THREE from 'three';
 
 // replace with your own imports, see the usage snippet for details
-import cardGLB from '../../assets/3d/card.glb';
+import cardGLB from '/3d/card.glb';
 import lanyard from '../../assets/images/lanyard.png';
 
 extend({ MeshLineGeometry, MeshLineMaterial });

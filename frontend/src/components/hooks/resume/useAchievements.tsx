@@ -4,7 +4,7 @@ import { getAchievements } from "../../services/achievements";
 export default function useAchievements(enabled = true) {
     const [achievements, setAchievements] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
         if (!enabled) return;
@@ -16,7 +16,7 @@ export default function useAchievements(enabled = true) {
                 const result = await getAchievements();
                 setAchievements(result.data);
             } catch (err) {
-                setError(err);
+                setError(err.message);
             } finally {
                 setLoading(false);
             }

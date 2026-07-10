@@ -4,7 +4,7 @@ import { getFrontendSkills } from "../services/frontendSkills";
 export default function useFrontendSkills(enabled = true) {
     const [frontend, setFrontend] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!enabled) return;
@@ -16,7 +16,7 @@ export default function useFrontendSkills(enabled = true) {
                 const result = await getFrontendSkills();
                 setFrontend(result.data);
             } catch (err) {
-                setError(err);
+                setError(err.message);
             } finally {
                 setLoading(false);
             }

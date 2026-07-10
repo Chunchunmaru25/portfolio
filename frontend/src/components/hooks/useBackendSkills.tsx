@@ -4,7 +4,7 @@ import { getBackendSkills } from "../services/backendSkills";
 export default function useBackendSkills(enabled = true) {
     const [backend, setbackend] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!enabled) return;
@@ -15,7 +15,7 @@ export default function useBackendSkills(enabled = true) {
                 const result = await getBackendSkills();
                 setbackend(result.data);
             } catch (err) {
-                setError(err);
+                setError(err.message);
             } finally {
                 setLoading(false);
             }

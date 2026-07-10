@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { getPersonal } from "../services/personal";
 
+interface PersonalItem {
+    key: string;
+    value: string | number;
+}
 export default function usePersonal(enabled = true) {
-    const [data, setAboutMe] = useState([]);
+    const [data, setAboutMe] = useState<PersonalItem[]>([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!enabled) return;
@@ -16,7 +20,7 @@ export default function usePersonal(enabled = true) {
                 const result = await getPersonal();
                 setAboutMe(result.data);
             } catch (err) {
-                setError(err);
+                setError(err.message);
             } finally {
                 setLoading(false);
             }
