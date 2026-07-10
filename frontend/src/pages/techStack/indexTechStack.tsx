@@ -378,7 +378,7 @@ function TechStackEntryCard({
                         {record.imgUrl && (
                             record.imgUrl.trim().startsWith("<svg") ? (
                                 <span
-                                    className="h-6 w-6"
+                                    className="h-6 w-6 [&>svg]:h-6 [&>svg]:w-6 [&>svg]:object-contain"
                                     dangerouslySetInnerHTML={{ __html: record.imgUrl }}
                                 />
                             ) : (
