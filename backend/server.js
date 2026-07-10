@@ -2,20 +2,19 @@ import { connectDB, disconnectDB } from "./src/database/database.js";
 import { APP_URL, PORT } from "./src/config/env.js";
 import app from "./app.js";
 
-const webPort = PORT || 5001;
-try {
-    if (!PORT) {
-        console.error(`Port ${PORT} not found`);
-    }
-    app.listen(webPort, async () => {
-        console.log(`Connected to port: ${webPort}`);
+const webPort = process.env.PORT || PORT || 5001;
+
+app.listen(webPort, async () => {
+    console.log(`Server listening on port ${webPort}`);
+
+    try {
         await connectDB();
-        console.log(`Connected to ${APP_URL}${webPort}`);
-    })
-} catch (error) {
-    console.error(`Error: ${error}`);
-    process.exit(1);
-}
+        console.log("Database connected");
+    } catch (error) {
+        console.error("Database connection failed:", error);
+        process.exit(1);
+    }
+});
 
 process.on("unhandledRejection", async (error) => {
     console.error(`Unhandled promise rejection: ${error}`);
