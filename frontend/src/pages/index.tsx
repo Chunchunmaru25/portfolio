@@ -40,7 +40,7 @@ export default function Index() {
                 {/* not showing page in search */}
                 {/* <meta name="robots" content="noindex, nofollow" /> */}
 
-                <meta name="robots" content="index, nofollow" />
+                <meta name="robots" content="index, follow" />
 
                 {/* official url */}
                 <link rel="canonical" href={import.meta.env.VITE_APP_OFFICIAL_URL} />
