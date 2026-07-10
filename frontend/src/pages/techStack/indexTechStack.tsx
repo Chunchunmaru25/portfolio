@@ -376,7 +376,18 @@ function TechStackEntryCard({
                         style={{ background: record.bgColor }}
                     >
                         {record.imgUrl && (
-                            <img src={record.imgUrl} alt={record.stack} className="h-6 w-6 object-contain" />
+                            record.imgUrl.trim().startsWith("<svg") ? (
+                                <span
+                                    className="h-6 w-6"
+                                    dangerouslySetInnerHTML={{ __html: record.imgUrl }}
+                                />
+                            ) : (
+                                <img
+                                    src={record.imgUrl}
+                                    alt={record.stack}
+                                    className="h-6 w-6 object-contain"
+                                />
+                            )
                         )}
                     </div>
 
