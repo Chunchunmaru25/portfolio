@@ -3,14 +3,15 @@ import { useState, useEffect } from 'react';
 import FlowingMenu from './reactbits/FlowingMenu';
 import { AnimatedThemeToggler } from './ui/animated-theme-toggler';
 import useTheme from './hooks/useTheme';
+import { homeImg, aboutImg, resumeImg, servicesImg, portfolioImg, skillsImg, contactImg } from './path/imagesPath';
 const demoItems = [
-    { link: '#', text: 'Home', image: "https://picsum.photos/200/300" },
-    { link: '#', text: 'About', image: "https://picsum.photos/200/300" },
-    { link: '#', text: 'Skills', image: "https://picsum.photos/200/300" },
-    { link: '#', text: 'Resume', image: "https://picsum.photos/200/300" },
-    { link: '#', text: 'Services', image: "https://picsum.photos/200/300" },
-    { link: '#', text: 'Portfolio', image: "https://picsum.photos/200/300" },
-    { link: '#', text: 'Contact', image: "https://picsum.photos/200/300" },
+    { link: '#', text: 'Home', image: homeImg },
+    { link: '#', text: 'About', image: aboutImg },
+    { link: '#', text: 'Skills', image: skillsImg },
+    { link: '#', text: 'Resume', image: resumeImg },
+    { link: '#', text: 'Services', image: servicesImg },
+    { link: '#', text: 'Portfolio', image: portfolioImg },
+    { link: '#', text: 'Contact', image: contactImg },
 ];
 function Header() {
     const isDarkMode = useTheme();

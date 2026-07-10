@@ -1,15 +1,15 @@
-
 type RangeProps = {
-    language: string,
-    description: string,
-    progress: string,
-    margin?: string,
-}
+    language: string;
+    description: string;
+    progress: string;
+    margin?: string;
+};
+
 export default function RangeProgressWTooltip({
     language,
     description,
     progress,
-    margin,
+    margin = "mb-6",
 }: RangeProps) {
     return (
         <div className={`skill-item group ${margin}`}>
@@ -26,23 +26,19 @@ export default function RangeProgressWTooltip({
             </div>
 
             {description && (
-                <div className="min-h-6">
-                    <div
-                        className="
-                            mt-2
-                            text-sm
-                            text-gray-500
-                            opacity-0
-                            max-h-0
-                            overflow-hidden
-                            transition-all
-                            duration-300
-                            group-hover:opacity-100
-                            group-hover:max-h-96
-                        "
-                    >
-                        {description}
-                    </div>
+                <div
+                    className="
+                        mt-[10px]
+                        max-h-0
+                        overflow-hidden
+                        opacity-0
+                        transition-all
+                        duration-300
+                        group-hover:max-h-24
+                        group-hover:opacity-100
+                    "
+                >
+                    <p className="text-sm text-gray-500">{description}</p>
                 </div>
             )}
         </div>

@@ -436,13 +436,11 @@ export default function Resume() {
                                                     <p className="mx-3 my-1">
                                                         {new Date(exp.startDate).toLocaleDateString("en-US", {
                                                             month: "long",
-                                                            day: "2-digit",
                                                             year: "numeric",
                                                         })}{" "}
                                                         -{" "}
                                                         {new Date(exp.endDate).toLocaleDateString("en-US", {
                                                             month: "long",
-                                                            day: "2-digit",
                                                             year: "numeric",
                                                         })}
                                                     </p>

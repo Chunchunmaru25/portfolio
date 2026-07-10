@@ -30,7 +30,7 @@ export const getAchievement = async (req, res) => {
     try {
         const achievements = await prisma.achievements.findMany({
             orderBy: {
-                year: 'desc'
+                title: 'desc'
             }
         });
 
