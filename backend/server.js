@@ -1,6 +1,5 @@
-import { connectDB } from "./src/database/database.js";
+import { connectDB, disconnectDB } from "./src/database/database.js";
 import { APP_URL, PORT } from "./src/config/env.js";
-import { disconnectDB } from "./src/database/database.js";
 import app from "./app.js";
 
 const webPort = PORT || 5001;
