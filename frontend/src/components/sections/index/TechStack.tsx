@@ -47,15 +47,26 @@ const FILTERS: { key: FilterType; label: string }[] = [
     { key: "developmenttools", label: "Development Tools" },
     { key: "templateanddesign", label: "Template And Design" },
 ];
-
 function TypeIcon({ imgUrl, title }: { imgUrl: string; title: string }) {
+    const isRawSvg = imgUrl.trim().startsWith("<svg");
+
+    if (isRawSvg) {
+        return (
+            <div
+                aria-label={title}
+                className="w-10 h-10 flex items-center justify-center"
+                dangerouslySetInnerHTML={{ __html: imgUrl }}
+            />
+        );
+    }
+
     return (
         <img
             src={imgUrl}
             alt={title}
             width={40}
             height={40}
-            style={{ width: 40, height: 40, objectFit: "contain" }}
+            className="w-10 h-10 object-contain"
             loading="lazy"
         />
     );
