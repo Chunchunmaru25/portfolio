@@ -16,6 +16,7 @@ import {
     BreadcrumbSeparator,
 } from "../../components/ui/breadcrumb";
 import { WebRoute } from "../../routes/web.route";
+import axios from "axios";
 
 export default function AddStack() {
     const isDarkMode = useTheme();
@@ -39,9 +40,14 @@ export default function AddStack() {
             setSubmitted(true);
             setLoading(false);
         } catch (error) {
-            console.error(error);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
             setSubmitted(false);
-            toast.error(error.message);
         }
     };
     return (

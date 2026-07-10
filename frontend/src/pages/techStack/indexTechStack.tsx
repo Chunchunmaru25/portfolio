@@ -12,7 +12,7 @@ import {
 } from "../../components/services/techStack";
 import { useNavigate } from "react-router";
 import { WebRoute } from "../../routes/web.route";
-
+import axios from "axios";
 // ======================
 // Types (mirrors Prisma schema)
 // ======================
@@ -101,7 +101,13 @@ export default function IndexTechStack({ dateFormat, title }: TechStackCardProps
                 }
                 setRecords(response.data ?? []);
             } catch (error) {
-                toast.error(error.response.data.message);
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message ?? "Request failed");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Unknown error");
+                }
             }
         })();
     }, []);

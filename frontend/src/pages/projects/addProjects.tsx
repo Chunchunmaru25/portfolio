@@ -22,7 +22,7 @@ import {
 import { SingleImage } from "../../components/validator/imageValidator";
 import type { SourceItem } from "../../components/path/interface";
 import toast from "react-hot-toast";
-
+import axios from "axios";
 // interface ProjectPayload {
 //     title: string;
 //     description: string;
@@ -153,7 +153,13 @@ export default function Projects() {
             ]);
             toast.success(response.message);
         } catch (error) {
-            console.error(error);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
             setSubmitted(false);
         } finally {
             setSubmitting(false);

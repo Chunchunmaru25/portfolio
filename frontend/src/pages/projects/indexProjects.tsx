@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { WebRoute } from "../../routes/web.route";
 import type { ProjectRecord } from "../../components/path/interface";
-
+import axios from "axios";
 
 const formatDate = (iso: string) =>
     new Date(iso).toLocaleString(undefined, {
@@ -36,7 +36,14 @@ export default function ProjectsView() {
                 } else {
                     setError(true);
                 }
-            } catch {
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message ?? "Request failed");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Unknown error");
+                }
                 navigate(WebRoute.LOGIN);
                 setError(true);
             } finally {
@@ -58,9 +65,14 @@ export default function ProjectsView() {
             }
             setProjects((prev) => prev.filter((p) => p.id !== projectId));
             toast.success(deleteProject.message);
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to delete project");
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     };
 
@@ -90,9 +102,14 @@ export default function ProjectsView() {
                 )
             );
             toast.success("Type Deleted");
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to delete type");
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     };
 
@@ -118,9 +135,14 @@ export default function ProjectsView() {
                 )
             );
             toast.success("Stack Deleted");
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to delete stack");
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     };
 
@@ -147,9 +169,14 @@ export default function ProjectsView() {
                 )
             );
             toast.success("Source Deleted");
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to delete screenshot");
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     };
 

@@ -16,6 +16,7 @@ import {
     BreadcrumbSeparator,
 } from "../../components/ui/breadcrumb";
 import { WebRoute } from "../../routes/web.route";
+import axios from "axios";
 export default function AddType() {
     const isDarkMode = useTheme();
     const [types, setTypes] = useState<string[]>([]);
@@ -38,9 +39,15 @@ export default function AddType() {
             setSubmitted(true);
             setLoading(false);
         } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
             console.error(error);
             setSubmitted(false);
-            toast.error(error.message);
         }
     };
     return (

@@ -16,7 +16,7 @@ import {
     BreadcrumbSeparator,
 } from "../../components/ui/breadcrumb";
 import { WebRoute } from "../../routes/web.route";
-
+import axios from "axios";
 let sourceIdCounter = 0;
 const nextSourceId = () => `src_${++sourceIdCounter}_${Date.now()}`;
 
@@ -121,7 +121,13 @@ export default function AddSource() {
                 },
             ]);
         } catch (error) {
-            console.error(error);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
             setSubmitted(false);
             setLoading(false);
         } finally {

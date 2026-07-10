@@ -21,7 +21,7 @@ import {
 import { WebRoute } from "../../routes/web.route";
 import { getSingleProject } from "../../components/services/projects";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 export default function EditProject() {
     const isDarkMode = useTheme();
     const [submitted, setSubmitted] = useState<boolean | null>(null);
@@ -43,7 +43,14 @@ export default function EditProject() {
                 } else {
                     toast.error(response.message);
                 }
-            } catch {
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message ?? "Request failed");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Unknown error");
+                }
                 navigate(WebRoute.LOGIN);
             } finally {
                 setLoading(false);
@@ -67,7 +74,13 @@ export default function EditProject() {
             setSubmitted(true);
             setLoading(false);
         } catch (error) {
-            console.error(error);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
             setSubmitted(false);
             toast.error(error.message);
         } finally {

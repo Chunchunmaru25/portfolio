@@ -7,7 +7,7 @@ import { WebRoute } from "../../routes/web.route";
 import { addExperienceDescription, deleteExperience, deleteExperienceDescription, getExperience, updateExperience, updateExperienceDescription } from "../../components/services/experience";
 import ExperienceCard from "./ExperienceCard";
 import type { Experience, ExperienceCardProps } from "../../components/path/interfaces/experienceInterface";
-
+import axios from "axios";
 
 export default function IndexExperience({ dateFormat, title }: ExperienceCardProps) {
     const isDarkMode = useTheme();
@@ -23,7 +23,13 @@ export default function IndexExperience({ dateFormat, title }: ExperienceCardPro
                 }
                 setRecords(response.data ?? []);
             } catch (error) {
-                toast.error(error.response.data.message);
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message ?? "Request failed");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Unknown error");
+                }
             }
         })()
     }, [])

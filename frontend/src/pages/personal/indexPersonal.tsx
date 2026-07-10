@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { addPersonalApi, deletePersonalApi, getPrivatePersonal, updatePersonalApi } from "../../components/services/personal";
 import { useNavigate } from "react-router";
 import { WebRoute } from "../../routes/web.route";
+import axios from "axios";
 // ======================
 // Dummy data
 // ======================
@@ -87,9 +88,14 @@ export default function IndexPersonal() {
                     toast.error(response.message);
                 }
             } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message ?? "Request failed");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Unknown error");
+                }
                 navigate(WebRoute.LOGIN);
-                toast.error(error.response.data.message);
-                console.log(error);
             } finally {
                 setLoading(false);
             }

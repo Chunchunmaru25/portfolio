@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useTheme from "../../components/hooks/useTheme";
 import { Plus } from "lucide-react";
 import toast from "react-hot-toast";
+import axios from "axios";
 // import { useNavigate } from "react-router";
 import { Card as BackendSkillsCard } from "./backendSkillsCard";
 import { createBackendSkills, deleteBackendSkills, getBackendSkills, updateBackendSkills } from "../../components/services/backendSkills";
@@ -49,7 +50,13 @@ export default function IndexBackendSkills({ dateFormat, title }: CardProps) {
 
                 setRecords(formattedData);
             } catch (error) {
-                toast.error(error.response.data.message);
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message ?? "Request failed");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Unknown error");
+                }
             }
         })();
     }, []);
@@ -60,7 +67,13 @@ export default function IndexBackendSkills({ dateFormat, title }: CardProps) {
             const response = await updateBackendSkills(id, fields);
             toast.success(response.message);
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     }
     // CREATE DATA
@@ -69,7 +82,13 @@ export default function IndexBackendSkills({ dateFormat, title }: CardProps) {
             const response = await createBackendSkills(fields);
             toast.success(response.message);
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     }
     // DELETE DATE
@@ -78,7 +97,13 @@ export default function IndexBackendSkills({ dateFormat, title }: CardProps) {
             const response = await deleteBackendSkills(id);
             toast.success(response.message);
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     }
     return (

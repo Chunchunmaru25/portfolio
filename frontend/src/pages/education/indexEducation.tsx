@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { addEducationDescription, deleteEducation, deleteEducationDescription, getEducation, updateEducation, updateEducationDescription } from "../../components/services/education";
 import { useNavigate } from "react-router";
 import { WebRoute } from "../../routes/web.route";
+import axios from "axios";
 // ======================
 // Types (mirrors Prisma schema)
 // ======================
@@ -110,7 +111,13 @@ export default function IndexEducation({ dateFormat }: EducationCardProps) {
                 }
                 setRecords(response.data ?? []);
             } catch (error) {
-                toast.error(error.response.data.message);
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message ?? "Request failed");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Unknown error");
+                }
             }
         })()
     }, [])

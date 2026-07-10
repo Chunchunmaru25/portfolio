@@ -9,6 +9,7 @@ import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import axios from "axios";
 import { addTechStack } from "../../components/services/techStack";
 export default function AddTechStack() {
     const isDarkMode = useTheme();
@@ -34,9 +35,14 @@ export default function AddTechStack() {
             setSubmitted(true);
             setLoading(false);
         } catch (error) {
-            console.error(error);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
             setSubmitted(false);
-            toast.error(error.message);
         }
     };
     return (

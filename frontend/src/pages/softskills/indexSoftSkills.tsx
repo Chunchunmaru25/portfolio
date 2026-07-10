@@ -6,6 +6,9 @@ import toast from "react-hot-toast";
 // import { useNavigate } from "react-router";
 import { Card as SoftSkillCard } from "./softSkillsCard";
 import { createSoftSkills, deleteSoftSkills, getSoftSkills, updateSoftSkills } from "../../components/services/softSkills";
+import axios from "axios";
+
+
 export type AllowedDateFormat = "day" | "month";
 export interface CardProps {
     dateFormat: AllowedDateFormat;
@@ -49,7 +52,13 @@ export default function IndexSoftSkills({ dateFormat, title }: CardProps) {
 
                 setRecords(formattedData);
             } catch (error) {
-                toast.error(error.response.data.message);
+                if (axios.isAxiosError(error)) {
+                    toast.error(error.response?.data?.message ?? "Request failed");
+                } else if (error instanceof Error) {
+                    toast.error(error.message);
+                } else {
+                    toast.error("Unknown error");
+                }
             }
         })();
     }, []);
@@ -60,7 +69,13 @@ export default function IndexSoftSkills({ dateFormat, title }: CardProps) {
             const response = await updateSoftSkills(id, fields);
             toast.success(response.message);
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     }
     // CREATE DATA
@@ -69,7 +84,13 @@ export default function IndexSoftSkills({ dateFormat, title }: CardProps) {
             const response = await createSoftSkills(fields);
             toast.success(response.message);
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     }
     // DELETE DATE
@@ -78,7 +99,13 @@ export default function IndexSoftSkills({ dateFormat, title }: CardProps) {
             const response = await deleteSoftSkills(id);
             toast.success(response.message);
         } catch (error) {
-            toast.error(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         }
     }
     return (
