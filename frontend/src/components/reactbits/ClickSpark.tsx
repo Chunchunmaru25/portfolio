@@ -63,7 +63,7 @@ const ClickSpark = ({
     };
   }, []);
 
-  const easeFunc = useCallback(t => {
+  const easeFunc = useCallback((t: number) => {
     switch (easing) {
       case 'linear':
         return t;

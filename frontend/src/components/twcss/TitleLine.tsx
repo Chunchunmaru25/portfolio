@@ -1,5 +1,11 @@
 import useTheme from "../hooks/useTheme";
-const TitleLine = function ({ title, subtitle }) {
+
+interface TitleLineProps {
+    title: string;
+    subtitle: string;
+}
+
+const TitleLine = function ({ title, subtitle }: TitleLineProps) {
     const isDarkMode = useTheme();
     return (
         <>

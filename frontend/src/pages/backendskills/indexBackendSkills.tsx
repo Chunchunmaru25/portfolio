@@ -42,7 +42,7 @@ export default function IndexBackendSkills({ dateFormat, title }: CardProps) {
                     return;
                 }
 
-                const formattedData = (response.data ?? []).map((item) => ({
+                const formattedData = (response.data ?? []).map((item: Records & { stack?: string; progress?: number | string }) => ({
                     ...item,
                     title: item.stack,    // new property
                     subtitle: String(item.progress),     // overwrite imgUrl with svg

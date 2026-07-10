@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { getBackendSkills } from "../services/backendSkills";
+import type { SkillRecord } from "../path/interfaces/dataTypes";
+import { getErrorMessage } from "../path/interfaces/dataTypes";
 
 export default function useBackendSkills(enabled = true) {
-    const [backend, setbackend] = useState([]);
+    const [backend, setbackend] = useState<SkillRecord[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -15,7 +17,7 @@ export default function useBackendSkills(enabled = true) {
                 const result = await getBackendSkills();
                 setbackend(result.data);
             } catch (err) {
-                setError(err.message);
+                setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
             }

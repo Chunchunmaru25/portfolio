@@ -7,6 +7,7 @@ import ContainedBtn from "../../uiverse/ContainedBtn";
 import OutlinedBtn from "../../uiverse/OutlinedBtn";
 import useTheme from "../../hooks/useTheme";
 import usePersonal from "../../hooks/usePersonal";
+import { personalValue, personalNumber } from "../../path/interfaces/dataTypes";
 import DecryptedText from "../../reactbits/DecryptedText";
 import CountUp from "../../reactbits/CountUp";
 import { SkeletonImage, SkeletonText, SkeletonNumber } from "../../reactbits/Skeleton";
@@ -95,10 +96,7 @@ export default function About() {
                                     <div className="group inline-block">
                                         <div className="blur-sm transition-all duration-300 group-hover:blur-none">
                                             <DecryptedText
-                                                text={
-                                                    data.find((person) => person.key === "phone")?.value ??
-                                                    ""
-                                                }
+                                                text={personalValue(data, "phone")}
                                                 speed={30}
                                                 maxIterations={45}
                                                 characters="ABCD1234!?/*`"
@@ -168,7 +166,7 @@ export default function About() {
                                 ) : (
                                     <CountUp
                                         from={0}
-                                        to={data.find((p) => p.key === "projectscompleted")?.value ?? 0}
+                                        to={personalNumber(data, "projectscompleted")}
                                         separator=","
                                         direction="up"
                                         duration={2}
@@ -188,7 +186,7 @@ export default function About() {
                                 ) : (
                                     <CountUp
                                         from={0}
-                                        to={data.find((p) => p.key === "yearsexperience")?.value ?? 0}
+                                        to={personalNumber(data, "yearsexperience")}
                                         separator=","
                                         direction="up"
                                         duration={2}

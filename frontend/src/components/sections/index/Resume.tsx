@@ -14,6 +14,7 @@ import {
 import { linkinSvg } from "../../path/svgPath";
 
 import usePersonal from '../../hooks/usePersonal';
+import { personalValue } from '../../path/interfaces/dataTypes';
 import useFrontendSkills from "../../hooks/useFrontendSkills";
 import useBackendSkills from "../../hooks/useBackendSkills";
 import useTheme from "../../hooks/useTheme";
@@ -189,7 +190,7 @@ export default function Resume() {
                                         ) : (
                                             <div className="blur-sm transition-all duration-300 group-hover:blur-none">
                                                 <DecryptedText
-                                                    text={data.find((person) => person.key === "phone")?.value ?? ""}
+                                                    text={personalValue(data, "phone")}
                                                     speed={30}
                                                     maxIterations={45}
                                                     characters="ABCD1234!?/*`"

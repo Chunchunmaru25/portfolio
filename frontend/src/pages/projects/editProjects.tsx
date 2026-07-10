@@ -34,6 +34,7 @@ export default function EditProject() {
     });
 
     useEffect(() => {
+        if (!projectId) return;
         (async () => {
             try {
                 const response = await getSingleProject(projectId);
@@ -56,10 +57,11 @@ export default function EditProject() {
                 setLoading(false);
             }
         })();
-    }, []);
+    }, [projectId]);
 
 
     const handleSubmit = async () => {
+        if (!projectId) return;
         setLoading(true);
 
         try {
@@ -82,7 +84,6 @@ export default function EditProject() {
                 toast.error("Unknown error");
             }
             setSubmitted(false);
-            toast.error(error.message);
         } finally {
             setLoading(false);
         }
@@ -181,7 +182,7 @@ export default function EditProject() {
                     <Button
                         type="button"
                         onClick={handleSubmit}
-                        disabled={submitted}
+                        disabled={submitted === true}
                         className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 font-medium transition-all duration-200
                         ${submitted
                                 ? "cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-800 dark:text-gray-600"

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import useTheme from '../hooks/useTheme';
-const GridBackground = (style) => {
+const GridBackground = ({ style = "" }: { style?: string }) => {
     const isDarkMode = useTheme();
     return (
         <StyledWrapper theme={isDarkMode ? "dark" : "light"}>

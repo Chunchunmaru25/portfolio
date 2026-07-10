@@ -28,3 +28,9 @@ declare module "*.webp" {
     const src: string;
     export default src;
 }
+
+declare module "*.jsx" {
+    import type { ComponentType } from "react";
+    const component: ComponentType<Record<string, unknown>>;
+    export default component;
+}

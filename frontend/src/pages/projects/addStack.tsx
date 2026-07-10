@@ -26,7 +26,7 @@ export default function AddStack() {
     const { projectId } = useParams<{ projectId: string }>();
 
     const handleSubmit = async () => {
-        if (!names.length || submitted) return;
+        if (!names.length || submitted || !projectId) return;
         setLoading(true);
 
         try {
@@ -135,7 +135,7 @@ export default function AddStack() {
                     <button
                         type="button"
                         onClick={handleSubmit}
-                        disabled={!names.length || submitted}
+                        disabled={!names.length || submitted === true}
                         className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 font-medium transition-all duration-200
             ${!names.length || submitted
                                 ? "cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-800 dark:text-gray-600"

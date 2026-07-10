@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { getExperience } from "../../services/experience";
+import type { Experience } from "../../path/interfaces/experienceInterface";
+import { getErrorMessage } from "../../path/interfaces/dataTypes";
 
 export default function useExperience(enabled = true) {
-    const [experience, setExperience] = useState([]);
+    const [experience, setExperience] = useState<Experience[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +18,7 @@ export default function useExperience(enabled = true) {
                 const result = await getExperience();
                 setExperience(result.data);
             } catch (err) {
-                setError(err.message);
+                setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
             }

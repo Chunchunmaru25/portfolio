@@ -183,7 +183,7 @@ export default function AddTechStack() {
                     <button
                         type="button"
                         onClick={handleSubmit}
-                        disabled={!types.length || submitted}
+                        disabled={!types.length || submitted === true}
                         className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 font-medium transition-all duration-200
             ${!types.length || submitted
                                 ? "cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-800 dark:text-gray-600"

@@ -2,16 +2,29 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useTheme from '../hooks/useTheme';
+import type { ReactNode } from 'react';
+
+export interface AccordionItem {
+  id: string;
+  title: string;
+  content: ReactNode;
+}
+
+interface AccordionProps {
+  items?: AccordionItem[];
+  allowMultiple?: boolean;
+  className?: string;
+}
 
 export default function Accordion({
   items = [],
   allowMultiple = false,
   className = '',
-}) {
+}: AccordionProps) {
   const isDarkMode = useTheme();
-  const [openIds, setOpenIds] = useState(new Set());
+  const [openIds, setOpenIds] = useState<Set<string>>(new Set());
 
-  const toggleItem = (id) => {
+  const toggleItem = (id: string) => {
     setOpenIds((prev) => {
       const newSet = new Set(prev);
 
@@ -73,45 +86,3 @@ export default function Accordion({
     </div>
   );
 }
-// USAGE
-
-
-// export default function Page() {
-//     const faqs = [
-//         {
-//             id: '1',
-//             title: 'What is this Morphing Card?',
-//             content: 'A smooth interactive card that expands into a full gallery with its own image carousel when clicked.',
-//         },
-//         {
-//             id: '2',
-//             title: 'How do I customize each image?',
-//             content: 'Pass an array of objects with src, caption, and description. Each image will show its own text when selected.',
-//         },
-//         {
-//             id: '3',
-//             title: 'Is it responsive?',
-//             content: 'Yes, the card and carousel work beautifully on mobile, tablet, and desktop.',
-//         },
-//         {
-//             id: '4',
-//             title: 'Can I use it multiple times?',
-//             content: 'Absolutely. Each MorphingCard is independent and fully reusable.',
-//         },
-//     ];
-
-//     return (
-//         <div className="min-h-screen bg-zinc-950 py-16 px-6">
-//             <div className="max-w-2xl mx-auto">
-//                 <h1 className="text-4xl font-light text-white mb-12 text-center tracking-tight">
-//                     Questions
-//                 </h1>
-
-//                 <Accordion
-//                     items={faqs}
-//                     allowMultiple={true}
-//                 />
-//             </div>
-//         </div>
-//     );
-// }

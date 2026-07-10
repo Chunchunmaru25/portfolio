@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import type { Tween } from "gsap";
 
 interface MenuItemProps extends FlowingMenuItem {
     speed: number;
@@ -70,7 +69,7 @@ function MenuItem({
     const itemRef = useRef<HTMLDivElement>(null);
     const marqueeRef = useRef<HTMLDivElement>(null);
     const marqueeInnerRef = useRef<HTMLDivElement>(null);
-    const animationRef = useRef<Tween | null>(null);
+    const animationRef = useRef<ReturnType<typeof gsap.to> | null>(null);
     const [repetitions, setRepetitions] = useState(4);
 
     const animationDefaults = { duration: 0.6, ease: 'expo' };

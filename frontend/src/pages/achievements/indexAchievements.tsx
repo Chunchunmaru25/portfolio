@@ -42,7 +42,7 @@ export default function IndexAchievements({ dateFormat, title }: CardProps) {
                     return;
                 }
 
-                const formattedData = (response.data ?? []).map((item) => ({
+                const formattedData = (response.data ?? []).map((item: Records & { year?: number | string }) => ({
                     ...item,
                     // title: item.stack,    // new property
                     subtitle: String(item.year),     // overwrite imgUrl with svg

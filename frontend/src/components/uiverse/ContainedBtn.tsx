@@ -1,7 +1,12 @@
-import React from 'react';
 import styled from 'styled-components';
+import type { ReactNode } from 'react';
 
-const ContainedBtn = ({ text, icon }) => {
+interface BtnProps {
+  text: string;
+  icon?: ReactNode;
+}
+
+const ContainedBtn = ({ text, icon }: BtnProps) => {
   return (
     <StyledWrapper>
       <button className="button">

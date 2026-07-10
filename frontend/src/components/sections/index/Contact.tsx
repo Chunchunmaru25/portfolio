@@ -1,4 +1,3 @@
-import React from "react";
 import BorderGlow from "../../reactbits/BorderGlow";
 import SpotlightCard from "../../reactbits/SpotlightCard";
 import { Mail, Phone, } from 'lucide-react'
@@ -7,6 +6,7 @@ import { facebookSvg, instagramSvg, tiktokSvg, githubSvg, linkinSvg } from '../.
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import Input from "../../twcss/Input";
 import usePersonal from "../../hooks/usePersonal";
+import { personalValue } from "../../path/interfaces/dataTypes";
 import DecryptedText from "../../reactbits/DecryptedText";
 import useTheme from "../../hooks/useTheme";
 import { useInView } from "react-intersection-observer";
@@ -88,7 +88,7 @@ const Contact = function () {
                                             <div className="group inline-block">
                                                 <div className="blur-sm transition-all duration-300 group-hover:blur-none">
                                                     <DecryptedText
-                                                        text={data.find((person) => person.key === "phone")?.value ?? ''}
+                                                        text={personalValue(data, "phone")}
                                                         speed={30}
                                                         maxIterations={45}
                                                         characters="ABCD1234!?/*`"
@@ -119,8 +119,7 @@ const Contact = function () {
                                         </b>
 
                                         <div className="flex flex-wrap justify-center gap-3">
-                                            <a href={data.find((person) => person.key === "email")?.value ??
-                                                "https://www.facebook.com/clarence.duerme40"} target="_blank">
+                                            <a href={personalValue(data, "facebook", "https://www.facebook.com/clarence.duerme40")} target="_blank">
                                                 <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                                                     <AvatarImage src={facebookSvg} />
                                                     <AvatarFallback>facebookSvg</AvatarFallback>
@@ -128,32 +127,28 @@ const Contact = function () {
                                             </a>
 
                                             {/* https://www.instagram.com/moriii__pawsa */}
-                                            <a href={data.find((person) => person.key === "email")?.value ??
-                                                "https://www.instagram.com/moriii__pawsa"} target="_blank">
+                                            <a href={personalValue(data, "instagram", "https://www.instagram.com/moriii__pawsa")} target="_blank">
                                                 <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                                                     <AvatarImage src={instagramSvg} />
                                                     <AvatarFallback>instagramSvg</AvatarFallback>
                                                 </Avatar>
                                             </a>
                                             {/* https://www.tiktok.com/@sh1raase */}
-                                            <a href={data.find((person) => person.key === "email")?.value ??
-                                                "https://www.tiktok.com/@sh1raase"} target="_blank">
+                                            <a href={personalValue(data, "tiktok", "https://www.tiktok.com/@sh1raase")} target="_blank">
                                                 <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                                                     <AvatarImage src={tiktokSvg} />
                                                     <AvatarFallback>tiktokSvg</AvatarFallback>
                                                 </Avatar>
                                             </a>
                                             {/* https://github.com/Chunchunmaru25 */}
-                                            <a href={data.find((person) => person.key === "email")?.value ??
-                                                "https://github.com/Chunchunmaru25"} target="_blank">
+                                            <a href={personalValue(data, "github", "https://github.com/Chunchunmaru25")} target="_blank">
                                                 <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                                                     <AvatarImage src={githubSvg} />
                                                     <AvatarFallback>githubSvg</AvatarFallback>
                                                 </Avatar>
                                             </a>
                                             {/* https://www.linkedin.com/in/keith-clarence-duerme-2232b4374 */}
-                                            <a href={data.find((person) => person.key === "email")?.value ??
-                                                "https://www.linkedin.com/in/keith-clarence-duerme-2232b4374"} target="_blank">
+                                            <a href={personalValue(data, "linkedin", "https://www.linkedin.com/in/keith-clarence-duerme-2232b4374")} target="_blank">
                                                 <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                                                     <AvatarImage src={linkinSvg} />
                                                     <AvatarFallback>linkinSvg</AvatarFallback>

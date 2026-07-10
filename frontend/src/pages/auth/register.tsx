@@ -10,6 +10,7 @@ import useTheme from "../../components/hooks/useTheme";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
+import { getErrorMessage } from "../../components/path/interfaces/dataTypes";
 export default function AuthRegister({
     modal = false,
     className = "",
@@ -47,8 +48,9 @@ export default function AuthRegister({
             toast.success(response.message);
             navigate(`${WebRoute.LOGIN}`);
         } catch (err) {
-            toast.error(err.response.data.message);
-            setError(err.response.data.message);
+            const message = getErrorMessage(err);
+            toast.error(message);
+            setError(message);
         } finally {
             setIsLoading(false);
         }

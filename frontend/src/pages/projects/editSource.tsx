@@ -34,6 +34,7 @@ export default function EditSource() {
     });
 
     useEffect(() => {
+        if (!sourceId) return;
         (async () => {
             try {
                 const response = await getSingleSourceApi(sourceId);
@@ -56,10 +57,11 @@ export default function EditSource() {
                 setLoading(false);
             }
         })();
-    }, []);
+    }, [sourceId]);
 
 
     const handleSubmit = async () => {
+        if (!sourceId) return;
         setLoading(true);
 
         try {
@@ -76,7 +78,13 @@ export default function EditSource() {
         } catch (error) {
             console.error(error);
             setSubmitted(false);
-            toast.error(error.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
         } finally {
             setLoading(false);
         }
@@ -175,7 +183,7 @@ export default function EditSource() {
                     <Button
                         type="button"
                         onClick={handleSubmit}
-                        disabled={submitted}
+                        disabled={submitted === true}
                         className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 font-medium transition-all duration-200
                         ${submitted
                                 ? "cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-800 dark:text-gray-600"

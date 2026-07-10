@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPersonal } from "../services/personal";
+import { getErrorMessage } from "../path/interfaces/dataTypes";
 
 interface PersonalItem {
     key: string;
@@ -20,7 +21,7 @@ export default function usePersonal(enabled = true) {
                 const result = await getPersonal();
                 setAboutMe(result.data);
             } catch (err) {
-                setError(err.message);
+                setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
             }

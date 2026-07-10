@@ -1,7 +1,12 @@
-import React from 'react';
 import styled from 'styled-components';
+import type { ReactNode } from 'react';
 
-const OutlinedBtn = ({ text, icon }) => {
+interface BtnProps {
+    text: string;
+    icon?: ReactNode;
+}
+
+const OutlinedBtn = ({ text, icon }: BtnProps) => {
     return (
         <StyledWrapper>
             <button className='items-center gap-2'>

@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { getTechStack } from "../services/techStack";
+import { getErrorMessage } from "../path/interfaces/dataTypes";
+
+interface TechStackItem {
+    id: string;
+    stack: string;
+    color?: string;
+    imgUrl?: string;
+    [key: string]: unknown;
+}
 
 export default function useTechStack(enabled = true) {
-    const [techStack, setTechStack] = useState([]);
+    const [techStack, setTechStack] = useState<TechStackItem[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +25,7 @@ export default function useTechStack(enabled = true) {
                 const result = await getTechStack();
                 setTechStack(result.data);
             } catch (err) {
-                setError(err.message);
+                setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
             }

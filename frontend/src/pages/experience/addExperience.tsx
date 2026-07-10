@@ -14,6 +14,7 @@ import {
 import { WebRoute } from "../../routes/web.route";
 import type { AddExperienceFormProps, DescriptionItem, AddExperiencePayload } from "../../components/path/interfaces/experienceInterface";
 import { addExperience } from "../../components/services/experience";
+import axios from "axios";
 
 let descIdCounter = 0;
 const nextDescId = () => `desc_${++descIdCounter}_${Date.now()}`;
@@ -102,7 +103,13 @@ export default function AddExperience({ onSuccess }: AddExperienceFormProps) {
         } catch (error) {
             console.error(error);
             setSubmitted(false);
-            toast.error(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
             setLoading(false);
         } finally {
             setSubmitted(null);

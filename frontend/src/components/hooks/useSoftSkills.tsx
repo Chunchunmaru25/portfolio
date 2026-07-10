@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { getSoftSkills } from "../services/softSkills";
+import type { SkillRecord } from "../path/interfaces/dataTypes";
+import { getErrorMessage } from "../path/interfaces/dataTypes";
 
 export default function useSoftSkills(enabled = true) {
-    const [SoftSkills, setSoftSkills] = useState([]);
+    const [SoftSkills, setSoftSkills] = useState<SkillRecord[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +18,7 @@ export default function useSoftSkills(enabled = true) {
                 const result = await getSoftSkills();
                 setSoftSkills(result.data);
             } catch (err) {
-                setError(err.message);
+                setError(getErrorMessage(err));
             } finally {
                 setLoading(false);
             }

@@ -43,13 +43,13 @@ export default function MorphingCard({
     const [isOpen, setIsOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const sliderRef = useRef(null);
+    const sliderRef = useRef<HTMLUListElement>(null);
 
     const thumbnailSrc = images.length > 0 ? images[0].src : null;
 
     const currentItem = images[activeIndex] || { src: '', caption: '', description: '' };
 
-    const scrollToActive = (index) => {
+    const scrollToActive = (index: number) => {
         if (!sliderRef.current) return;
         const slides = sliderRef.current.children;
         if (slides[index]) {
@@ -60,7 +60,7 @@ export default function MorphingCard({
         }
     };
 
-    const handleThumbnailClick = (index) => {
+    const handleThumbnailClick = (index: number) => {
         setActiveIndex(index);
         scrollToActive(index);
     };

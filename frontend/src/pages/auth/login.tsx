@@ -10,6 +10,7 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import AuthShell from "./authShell";
+import { getErrorMessage } from "../../components/path/interfaces/dataTypes";
 
 export default function Login({
     modal = false,
@@ -38,8 +39,9 @@ export default function Login({
             toast.success(response.message);
             navigate(`${WebRoute.CONTROL_PANEL}`);
         } catch (err) {
-            toast.error(err.response.data.message);
-            setError(err.response.data.message);
+            const message = getErrorMessage(err);
+            toast.error(message);
+            setError(message);
         } finally {
             setIsLoading(false);
         }

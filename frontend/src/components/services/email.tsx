@@ -1,6 +1,12 @@
 import emailjs from "@emailjs/browser";
 
-export default async function Emailjs(name, email, phone, subject, message) {
+export default async function Emailjs(
+    name: string,
+    email: string,
+    phone: string,
+    subject: string,
+    message: string
+) {
     const dateTime = new Date().toISOString();
 
     const templateParams = {

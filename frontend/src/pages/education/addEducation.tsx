@@ -13,6 +13,7 @@ import {
 } from "../../components/ui/breadcrumb";
 import { WebRoute } from "../../routes/web.route";
 import { addEducation } from "../../components/services/education";
+import axios from "axios";
 
 export interface AddEducationPayload {
     program: string;
@@ -114,7 +115,13 @@ export default function AddEducation({ onSuccess }: AddEducationFormProps) {
         } catch (error) {
             console.error(error);
             setSubmitted(false);
-            toast.error(error.response.data.message);
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message ?? "Request failed");
+            } else if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("Unknown error");
+            }
             setLoading(false);
         } finally {
             setSubmitted(null);

@@ -1,5 +1,16 @@
 import React from "react";
 import useTheme from "../hooks/useTheme";
+import type { ReactNode } from "react";
+
+interface GridTwoProps {
+    maxWidth?: string;
+    flexPortion?: [string, string];
+    children?: ReactNode;
+    className?: string;
+    borderLeft?: string;
+    borderRight?: string;
+}
+
 const GridTwo = ({
     maxWidth = "80%",
     flexPortion = ["1fr", "1fr"],
@@ -7,7 +18,7 @@ const GridTwo = ({
     className = "",
     borderLeft = "",
     borderRight = "",
-}) => {
+}: GridTwoProps) => {
     const isDarkMode = useTheme();
     const [leftContent, rightContent] = React.Children.toArray(children);
 

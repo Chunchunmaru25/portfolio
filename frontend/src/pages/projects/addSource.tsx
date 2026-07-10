@@ -78,7 +78,7 @@ export default function AddSource() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (submitting) return;
+        if (submitting || !projectId) return;
 
         setLoading(true);
         setSubmitting(true);
@@ -215,7 +215,7 @@ export default function AddSource() {
                         <div className="mt-8">
                             <button
                                 type="submit"
-                                disabled={submitted}
+                                disabled={submitted === true}
                                 className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 font-medium transition-all duration-200 ${submitted
                                     ? "cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-800 dark:text-gray-600"
                                     : isDarkMode
