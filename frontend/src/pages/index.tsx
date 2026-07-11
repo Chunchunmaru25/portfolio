@@ -31,6 +31,8 @@ export default function Index() {
             <Helmet>
                 <title>{import.meta.env.VITE_APP_NAME}</title>
 
+                <meta name="google-site-verification" content="sEF-ZsMpIReUUVmuAgeEoFYje1xn6g34ihe3AGfFd9I" />
+
                 <meta
                     name="description"
                     content={import.meta.env.VITE_APP_DESCRIPTION}
