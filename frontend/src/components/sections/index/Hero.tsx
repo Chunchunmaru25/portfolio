@@ -16,8 +16,12 @@ function Hero() {
         threshold: 0.2,
     });
     const { data = [] } = usePersonal(inView);
+    const firstName = data.find((person) => person.key === "firstname")?.value;
 
-
+    const displayName =
+        typeof firstName === "string"
+            ? firstName.trim().split(" ").pop() ?? "Clarence"
+            : "Clarence";
     const isDarkMode = useTheme();
 
     const path = isDarkMode
@@ -59,7 +63,7 @@ function Hero() {
                     <div className="flex items-center py-5 md:w-1/2 md:pb-20 md:pt-10 md:pl-10 h-full">
                         <div >
                             <ProfileCard
-                                name={`${data.find((person) => person.key === "firstname")?.value ?? 'Clarence'} ${data.find((person) => person.key === "lastName")?.value ?? 'Duerme'}`}
+                                name={`${displayName} ${data.find((person) => person.key === "lastName")?.value ?? 'Duerme'}`}
                                 title={`${data.find((person) => person.key === "title")?.value ?? 'System Developer'} `}
                                 handle={`${data.find((person) => person.key === "firstname")?.value ?? 'Clarence'} ${data.find((person) => person.key === "lastName")?.value ?? 'Duerme'}`}
                                 status="Online"
